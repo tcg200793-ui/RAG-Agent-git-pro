@@ -1,0 +1,62 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>端到端实测：一个成功，一个失败</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>04 · RESULTS</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 26, paddingBottom: 18, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', height: 434 }}>
+            <Box style={{ width: 630, flexDirection: 'column', paddingRight: 34 }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>成功：书中覆盖度高的提问</Text>
+                <Box style={{ height: 12 }} />
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>「rebase 和 merge 有什么区别？」</Text>
+                <Box style={{ height: 14 }} />
+                <Box style={{ flexDirection: 'row', height: 74, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ width: 96, fontSize: 15, color: '#8B97A8' }}>命中块</Text>
+                    <Text style={{ flex: 1, fontSize: 16, lineHeight: 1.65, color: '#1A2230' }}>变基 p99（0.767）、变基 vs. 合并 p108、附录 C › git rebase p495</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 74, borderBottom: '1px solid #E5E7EB', paddingTop: 10 }}>
+                    <Text style={{ width: 96, fontSize: 15, color: '#8B97A8' }}>答案结构</Text>
+                    <Text style={{ flex: 1, fontSize: 16, lineHeight: 1.65, color: '#1A2230' }}>先给本质区别，再列表对比历史形态，最后列约束与风险</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 74, borderBottom: '1px solid #E5E7EB', paddingTop: 10 }}>
+                    <Text style={{ width: 96, fontSize: 15, color: '#8B97A8' }}>引用规范</Text>
+                    <Text style={{ flex: 1, fontSize: 16, lineHeight: 1.65, color: '#1A2230' }}>3 处，均落到「章节 &gt; 小节，页码」，无一句无出处</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 74, paddingTop: 10 }}>
+                    <Text style={{ width: 96, fontSize: 15, color: '#8B97A8' }}>判断质量</Text>
+                    <Text style={{ flex: 1, fontSize: 16, lineHeight: 1.65, color: '#1A2230' }}>主动补充「rebase 不可用于已推送的分支」，与原文的警告一致</Text>
+                </Box>
+            </Box>
+            <Box style={{ width: 530, flexDirection: 'column', paddingLeft: 34, borderLeft: '1px solid #D6DCE5' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>失败：语料没有覆盖的提问</Text>
+                <Box style={{ height: 12 }} />
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>「如何撤销已经推送的提交？」</Text>
+                <Box style={{ height: 14 }} />
+                <Box style={{ flexDirection: 'row', height: 74, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ width: 96, fontSize: 15, color: '#8B97A8' }}>命中块</Text>
+                    <Text style={{ flex: 1, fontSize: 16, lineHeight: 1.65, color: '#1A2230' }}>撤消操作 p55–57、重写历史 p247，均为「相关但不解决」</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 74, borderBottom: '1px solid #E5E7EB', paddingTop: 10 }}>
+                    <Text style={{ width: 96, fontSize: 15, color: '#8B97A8' }}>模型行为</Text>
+                    <Text style={{ flex: 1, fontSize: 16, lineHeight: 1.65, color: '#1A2230' }}>明确说「知识库里没有具体步骤」，并指出最接近的章节</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 74, borderBottom: '1px solid #E5E7EB', paddingTop: 10 }}>
+                    <Text style={{ width: 96, fontSize: 15, color: '#8B97A8' }}>审计告警</Text>
+                    <Text style={{ flex: 1, fontSize: 16, lineHeight: 1.65, color: '#D9534F' }}>--force、--hard 未在本轮原文出现，已黄字提示核对</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 74, paddingTop: 10 }}>
+                    <Text style={{ width: 96, fontSize: 15, color: '#8B97A8' }}>仍存缺口</Text>
+                    <Text style={{ flex: 1, fontSize: 16, lineHeight: 1.65, color: '#1A2230' }}>答案仍给出了 git revert 示例——命令名不在审计范围内</Text>
+                </Box>
+            </Box>
+        </Box>
+        <Box style={{ height: 16 }} />
+        <Box style={{ height: 68, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>审计只看长选项，是<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>有效但不完整</span>的一道网；把命令名一并纳入比对，是成本最低的一处改进。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>18 / 20</Text>
+    </Box>
+</Slide>

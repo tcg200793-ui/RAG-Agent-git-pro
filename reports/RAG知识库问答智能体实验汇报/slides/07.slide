@@ -1,0 +1,60 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>切块质检：三个真实踩坑</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>01 · CORPUS</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 30, paddingBottom: 18, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', height: 420 }}>
+            <Box style={{ width: 748, flexDirection: 'column', paddingRight: 32 }}>
+                <Box style={{ flexDirection: 'column', height: 132, borderBottom: '1px solid #E5E7EB', paddingTop: 2 }}>
+                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230' }}>坑一　围栏套围栏，Markdown 结构被破坏</Text>
+                    <Box style={{ height: 9 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>「GitHub」一节原文自带三反引号，用固定三反引号包裹会让围栏提前闭合。</Text>
+                    <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#1E4FA8' }}>修法：围栏长度 = 文本中最长连续反引号数 + 1。</Text>
+                </Box>
+                <Box style={{ flexDirection: 'column', height: 132, borderBottom: '1px solid #E5E7EB', paddingTop: 18 }}>
+                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230' }}>坑二　连续代码块把单块撑到 2556 字</Text>
+                    <Box style={{ height: 9 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>原设计「代码块不从中间劈开」，结果多个代码块堆叠时不触发打包边界。</Text>
+                    <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#1E4FA8' }}>修法：代码块本身不可劈，但要允许它触发收块。</Text>
+                </Box>
+                <Box style={{ flexDirection: 'column', height: 132, paddingTop: 18 }}>
+                    <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230' }}>坑三　图注是纯噪声</Text>
+                    <Box style={{ height: 9 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>PDF 里的「Figure N.」图注没有对应图片进入文本层，只剩一句话悬空。</Text>
+                    <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#1E4FA8' }}>修法：正则识别图注，整块丢弃。</Text>
+                </Box>
+            </Box>
+            <Box style={{ width: 412, flexDirection: 'column', paddingLeft: 32, borderLeft: '1px solid #D6DCE5' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>质检后抽样复检</Text>
+                <Box style={{ height: 12 }} />
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 58, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 17, color: '#4A5568' }}>页码残留</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#1E4FA8' }}>0</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 58, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 17, color: '#4A5568' }}>目录点线残留</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#1E4FA8' }}>0</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 58, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 17, color: '#4A5568' }}>图注残留</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#1E4FA8' }}>0</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 58, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 17, color: '#4A5568' }}>超 1200 字的长块</Text>
+                    <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#1E4FA8' }}>9</Text>
+                </Box>
+                <Box style={{ height: 14 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.65, color: '#8B97A8' }}>9 个长块均为 svn、hg、log 的超长终端输出，属内容本身长度，不再强行切分。</Text>
+            </Box>
+        </Box>
+        <Box style={{ height: 24 }} />
+        <Box style={{ height: 66, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>噪声一旦进了向量库，就再也滤不掉——<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>质检必须放在生成向量之前</span>，不能等检索效果差了再回头查。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>07 / 20</Text>
+    </Box>
+</Slide>

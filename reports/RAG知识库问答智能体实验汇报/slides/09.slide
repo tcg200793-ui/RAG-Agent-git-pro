@@ -1,0 +1,56 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>向量索引：805 × 1024 的一次性投入</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>02 · EMBEDDING</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 30, paddingBottom: 18, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', height: 404 }}>
+            <Box style={{ width: 512, flexDirection: 'column', paddingRight: 36 }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>构建链路</Text>
+                <Box style={{ height: 16 }} />
+                <Box style={{ height: 66, background: '#F7F9FC', border: '1px solid #D6DCE5', paddingLeft: 18, flexDirection: 'column', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 18, color: '#1A2230' }}>chunks.jsonl　805 块文本</Text>
+                </Box>
+                <Box style={{ height: 26, alignItems: 'center' }}><Text style={{ fontSize: 16, color: '#3D7BD9' }}>↓</Text></Box>
+                <Box style={{ height: 66, background: '#F7F9FC', border: '1px solid #D6DCE5', paddingLeft: 18, flexDirection: 'column', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 18, color: '#1A2230' }}>每批 10 条调 text-embedding-v4</Text>
+                </Box>
+                <Box style={{ height: 26, alignItems: 'center' }}><Text style={{ fontSize: 16, color: '#3D7BD9' }}>↓</Text></Box>
+                <Box style={{ height: 66, background: '#F7F9FC', border: '1px solid #D6DCE5', paddingLeft: 18, flexDirection: 'column', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 18, color: '#1A2230' }}>1024 维向量 · L2 归一化</Text>
+                </Box>
+                <Box style={{ height: 26, alignItems: 'center' }}><Text style={{ fontSize: 16, color: '#3D7BD9' }}>↓</Text></Box>
+                <Box style={{ height: 66, background: '#E8EFF8', border: '1px solid #B9CDEB', paddingLeft: 18, flexDirection: 'column', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1E4FA8' }}>embeddings.npy　805 × 1024 · 3.1 MB</Text>
+                </Box>
+            </Box>
+            <Box style={{ width: 600, flexDirection: 'column', paddingLeft: 36, borderLeft: '1px solid #D6DCE5' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>三个工程决策</Text>
+                <Box style={{ height: 16 }} />
+                <Box style={{ flexDirection: 'column', height: 122, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>① 批量 10 条，不是 32 条</Text>
+                    <Box style={{ height: 8 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>该接口单批上限 10 条，沿用 OpenAI 惯例的 32 会直接 400 报错，是实测撞出来的数。</Text>
+                </Box>
+                <Box style={{ flexDirection: 'column', height: 122, borderBottom: '1px solid #E5E7EB', paddingTop: 16 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>② 4xx 不重试，5xx 才退避</Text>
+                    <Box style={{ height: 8 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>鉴权与参数错误重试无意义，只会放大失败；仅对 5xx 做最多 3 次指数退避。</Text>
+                </Box>
+                <Box style={{ flexDirection: 'column', height: 122, paddingTop: 16 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>③ 入库前就归一化</Text>
+                    <Box style={{ height: 8 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>向量写盘时已 L2 归一化，检索端只需一次内积，省掉每次查询的模长除法。</Text>
+                </Box>
+            </Box>
+        </Box>
+        <Box style={{ height: 24 }} />
+        <Box style={{ height: 66, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>向量化只做一次，检索做无数次——<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>把能提前算的都提前算掉</span>，是把问答延迟压下来的第一步。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>09 / 20</Text>
+    </Box>
+</Slide>

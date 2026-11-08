@@ -1,0 +1,66 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>BM25 基线：零依赖的另一条腿</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>02 · RETRIEVAL</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 30, paddingBottom: 18, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', height: 404 }}>
+            <Box style={{ width: 620, flexDirection: 'column', paddingRight: 36 }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>实现上的三个取舍</Text>
+                <Box style={{ height: 14 }} />
+                <Box style={{ flexDirection: 'column', height: 118, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>① 不引入 jieba</Text>
+                    <Box style={{ height: 8 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.65, color: '#4A5568' }}>中文按相邻二字切片，英文按符号切整词。省掉一个分词依赖，代价是「的、了」这类高频二字组需要靠 IDF 压低权重。</Text>
+                </Box>
+                <Box style={{ flexDirection: 'column', height: 118, borderBottom: '1px solid #E5E7EB', paddingTop: 14 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>② 只用标准库</Text>
+                    <Box style={{ height: 8 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.65, color: '#4A5568' }}>Counter 统计词频、math 算 IDF，805 块全量打分 0.54 ms。没有向量库、没有 API，换台机器就能跑。</Text>
+                </Box>
+                <Box style={{ flexDirection: 'column', height: 118, paddingTop: 14 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>③ 命令名天然精确</Text>
+                    <Box style={{ height: 8 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.65, color: '#4A5568' }}>「git rebase」「cherry-pick」走英文切片，保留连字符，不会被中文分词规则切碎——这恰好是向量检索的弱项。</Text>
+                </Box>
+            </Box>
+            <Box style={{ width: 492, flexDirection: 'column', paddingLeft: 36, borderLeft: '1px solid #D6DCE5' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>两者谁更强，取决于问法</Text>
+                <Box style={{ height: 14 }} />
+                <Table
+                    style={{ width: '100%', height: 306 }}
+                    defaultTextStyle={{ fontSize: 16, textAlign: 'left', color: '#1A2230' }}
+                    defaultCellStyle={{
+                        border: {
+                            left: { width: 0, color: '#FFFFFF' },
+                            right: { width: 0, color: '#FFFFFF' },
+                            top: { width: 0, color: '#FFFFFF' },
+                            bottom: { width: 1, color: '#D6DCE5' },
+                        },
+                    }}
+                    cells={[
+                        [
+                            { text: '查询特征', textStyle: { bold: true, color: '#1E4FA8' }, cellStyle: { background: { color: '#E8EFF8' } } },
+                            { text: 'BM25', textStyle: { bold: true, color: '#1E4FA8' }, cellStyle: { background: { color: '#E8EFF8' } } },
+                            { text: '向量', textStyle: { bold: true, color: '#1E4FA8' }, cellStyle: { background: { color: '#E8EFF8' } } },
+                        ],
+                        ['含具体命令名', { text: '强', textStyle: { bold: true, color: '#1E4FA8' } }, { text: '中', textStyle: { color: '#8B97A8' } }],
+                        ['同义改写提问', { text: '弱', textStyle: { color: '#8B97A8' } }, { text: '强', textStyle: { bold: true, color: '#1E4FA8' } }],
+                        ['长句、口语化', { text: '弱', textStyle: { color: '#8B97A8' } }, { text: '强', textStyle: { bold: true, color: '#1E4FA8' } }],
+                        ['生僻术语匹配', { text: '强', textStyle: { bold: true, color: '#1E4FA8' } }, { text: '中', textStyle: { color: '#8B97A8' } }],
+                    ]}
+                />
+                <Box style={{ height: 14 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#8B97A8' }}>二者短板恰好错位，这是下一步做融合检索的依据。</Text>
+            </Box>
+        </Box>
+        <Box style={{ height: 24 }} />
+        <Box style={{ height: 66, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>留一套零依赖基线不是为了省钱，是为了<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>有一个对照组</span>——没有它，就无法判断向量检索到底好在哪里。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>11 / 20</Text>
+    </Box>
+</Slide>

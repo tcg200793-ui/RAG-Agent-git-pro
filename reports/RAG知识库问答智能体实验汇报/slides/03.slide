@@ -1,0 +1,10 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'row' }}>
+    <Box style={{ width: 440, height: 720, background: '#1E4FA8', paddingLeft: 60, paddingBottom: 76, flexDirection: 'column', justifyContent: 'flex-end' }}>
+        <Text style={{ fontSize: 168, fontWeight: 'bold', color: '#3D7BD9', lineHeight: 1 }}>01</Text>
+    </Box>
+    <Box style={{ width: 840, height: 720, paddingLeft: 80, paddingRight: 80, flexDirection: 'column', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 46, fontWeight: 'bold', color: '#1A2230', lineHeight: 1.3 }}>语料与预处理</Text>
+        <Box style={{ height: 24 }} />
+        <Text style={{ fontSize: 19, lineHeight: 1.9, color: '#4A5568' }}>Pro Git 中文版 · PDF 结构探查<br />语义切块与噪声质检</Text>
+    </Box>
+</Slide>

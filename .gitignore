@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# 密钥：绝不入仓
+.env
+
+# 语料与索引：PDF 属版权内容，chunks / embeddings 是可重建产物，一律不入仓
+data/*
+!data/.gitkeep
+
+# WorkBuddy 本地状态与记忆，与项目本身无关
+.workbuddy/
+
+# 演示文稿工具的构建缓存
+.slidep/
+
+# 运行日志
+*.log

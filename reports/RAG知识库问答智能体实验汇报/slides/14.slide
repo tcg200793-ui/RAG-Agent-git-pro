@@ -1,0 +1,69 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>提示词工程：把「不许编」写成可执行规则</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>03 · AGENT</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 28, paddingBottom: 18, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', height: 448 }}>
+            <Box style={{ width: 700, flexDirection: 'column', paddingRight: 34 }}>
+                <Box style={{ flexDirection: 'row', height: 112, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ width: 52, fontSize: 22, fontWeight: 'bold', color: '#3D7BD9' }}>Ⅰ</Text>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>知识来源只有检索原文</Text>
+                        <Box style={{ height: 7 }} />
+                        <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>材料没覆盖就说「知识库里没有」，禁止用「通常」「一般来说」填补空缺。</Text>
+                    </Box>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 112, borderBottom: '1px solid #E5E7EB', paddingTop: 16 }}>
+                    <Text style={{ width: 52, fontSize: 22, fontWeight: 'bold', color: '#3D7BD9' }}>Ⅱ</Text>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>引用必须落到章节与页码</Text>
+                        <Box style={{ height: 7 }} />
+                        <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>格式固定为「Git 分支 &gt; 变基，p99」；单次回答不超过 4 处，不句句挂来源。</Text>
+                    </Box>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 112, borderBottom: '1px solid #E5E7EB', paddingTop: 16 }}>
+                    <Text style={{ width: 52, fontSize: 22, fontWeight: 'bold', color: '#3D7BD9' }}>Ⅲ</Text>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>命令要完整，副作用要说清</Text>
+                        <Box style={{ height: 7 }} />
+                        <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>是否可逆、是否改写已推送历史、是否需要强制推送，三项必须交代。</Text>
+                    </Box>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 112, paddingTop: 16 }}>
+                    <Text style={{ width: 52, fontSize: 22, fontWeight: 'bold', color: '#3D7BD9' }}>Ⅳ</Text>
+                    <Box style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>给相似度划出判断档位</Text>
+                        <Box style={{ height: 7 }} />
+                        <Text style={{ fontSize: 17, lineHeight: 1.6, color: '#4A5568' }}>0.75 以上视为对题；0.5–0.75 必须读原文确认；0.5 以下换词重试或直说没找到。</Text>
+                    </Box>
+                </Box>
+            </Box>
+            <Box style={{ width: 426, flexDirection: 'column', paddingLeft: 34, borderLeft: '1px solid #D6DCE5' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>参数边界怎么写才有效</Text>
+                <Box style={{ height: 16 }} />
+                <Box style={{ background: '#F7F9FC', borderLeft: '3px solid #D9534F', paddingLeft: 18, paddingRight: 16, paddingTop: 16, paddingBottom: 16, flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#D9534F', letterSpacing: 1 }}>反例</Text>
+                    <Box style={{ height: 8 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.65, color: '#1A2230' }}>「通常用 --force-with-lease 更安全」——书里没有这个参数，写了就是编造。</Text>
+                </Box>
+                <Box style={{ height: 18 }} />
+                <Box style={{ background: '#F7F9FC', borderLeft: '3px solid #1E4FA8', paddingLeft: 18, paddingRight: 16, paddingTop: 16, paddingBottom: 16, flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1E4FA8', letterSpacing: 1 }}>正例</Text>
+                    <Box style={{ height: 8 }} />
+                    <Text style={{ fontSize: 17, lineHeight: 1.65, color: '#1A2230' }}>「书中未涉及该做法，建议查官方文档」——只说方向，不给具体参数名。</Text>
+                </Box>
+                <Box style={{ height: 18 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.7, color: '#8B97A8' }}>规则写的是「不得写出书中没有的参数」，而不是「尽量准确」——前者能被执行，后者只能被希望。</Text>
+            </Box>
+        </Box>
+        <Box style={{ height: 18 }} />
+        <Box style={{ height: 68, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>提示词的价值不在措辞漂亮，在<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>每条规则都能被检查、被违反、被抓到</span>——否则只是写给自己的安慰。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>14 / 20</Text>
+    </Box>
+</Slide>

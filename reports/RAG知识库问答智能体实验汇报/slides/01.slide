@@ -1,0 +1,26 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ flexDirection: 'row', height: 720 }}>
+        <Box style={{ width: 760, height: 720, paddingLeft: 72, paddingRight: 40, paddingTop: 96, paddingBottom: 72, justifyContent: 'space-between' }}>
+            <Box style={{ flexDirection: 'column' }}>
+                <Text style={{ fontSize: 16, color: '#1E4FA8', letterSpacing: 3, fontWeight: 'bold' }}>实验报告 · EXPERIMENT REPORT</Text>
+                <Box style={{ height: 28 }} />
+                <Text style={{ fontSize: 58, lineHeight: 1.2, fontWeight: 'bold', color: '#1A2230' }}>基于 RAG 的<br />Git 知识库问答智能体</Text>
+                <Box style={{ height: 26 }} />
+                <Text style={{ fontSize: 21, lineHeight: 1.5, color: '#4A5568' }}>从 501 页 PDF 到可追溯引用的问答链路</Text>
+            </Box>
+            <Box style={{ flexDirection: 'column' }}>
+                <Box style={{ height: 1, background: '#D6DCE5', width: 620 }} />
+                <Box style={{ height: 20 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.7, color: '#4A5568' }}>计算机科学与技术 · 唐成纲　2026011352</Text>
+                <Text style={{ fontSize: 16, lineHeight: 1.7, color: '#8B97A8' }}>2026 年 11 月</Text>
+            </Box>
+        </Box>
+        <Box style={{ width: 520, height: 720, flexDirection: 'column', justifyContent: 'flex-end' }}>
+            <Box style={{ height: 420, background: '#1E4FA8' }} />
+            <Box style={{ height: 116, background: '#E8EFF8' }} />
+            <Box style={{ height: 184, flexDirection: 'row' }}>
+                <Box style={{ width: 176, background: '#3D7BD9', height: 184 }} />
+            </Box>
+        </Box>
+    </Box>
+</Slide>
