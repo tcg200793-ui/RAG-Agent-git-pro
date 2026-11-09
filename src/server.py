@@ -131,6 +131,12 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
         self.send_header("Cache-Control", "no-cache")
+        # 关键：流式响应没有 Content-Length，也不做 chunked 编码，
+        # 浏览器只能靠「连接关闭」判断流结束。HTTP/1.1 默认 keep-alive，
+        # 不声明 close 的话这条连接会一直挂着，前端 fetch 的 reader 永远等不到 done，
+        # 于是 busy 卡死、发送按钮一直禁用 —— 表现出来就是「只能问一个问题」。
+        self.send_header("Connection", "close")
+        self.close_connection = True
         self.send_header("X-Accel-Buffering", "no")
         self.end_headers()
 

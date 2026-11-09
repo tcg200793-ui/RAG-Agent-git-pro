@@ -384,6 +384,9 @@ async function ask(question) {
   const bubble = shell.querySelector('.bubble');
 
   let got = false;
+  // 收到 answer / error 就说明这一轮已经结束，可以主动收流，
+  // 不必等服务端关连接（服务端异常时也保证界面能解锁）
+  let finished = false;
   try {
     const resp = await fetch('/api/chat', {
       method: 'POST',
@@ -420,6 +423,7 @@ async function ask(question) {
           bubble.innerHTML = '<div class="thinking"><i></i><i></i><i></i><span>读到原文，组织答案中…</span></div>';
         } else if (event === 'answer') {
           got = true;
+          finished = true;
           bubble.innerHTML = md(payload.answer || '（空）');
         } else if (event === 'warn') {
           const w = document.createElement('div');
@@ -428,8 +432,14 @@ async function ask(question) {
           bubble.appendChild(w);
         } else if (event === 'error') {
           got = true;
+          finished = true;
           bubble.innerHTML = '<div class="err">请求失败：' + esc(payload.message) + '</div>';
         }
+      }
+      if (finished) {
+        // 主动结束读取：并发连接不会残留，busy 立刻在 finally 里复位
+        try { await reader.cancel(); } catch (err) { /* 已关闭就忽略 */ }
+        break;
       }
     }
     if (!got) bubble.innerHTML = '<div class="err">连接中断，没有收到答案。</div>';
@@ -453,8 +463,21 @@ function submit() {
 }
 
 sendBtn.addEventListener('click', submit);
+
+/* 输入法（中文/日文等）组词状态跟踪。
+   组词时按回车是「上屏候选词」，不是发送；但浏览器在 keydown 里给的 isComposing
+   并不可靠（Safari / 部分输入法会把确认候选的那次回车报成普通按键），
+   所以自己用 composition 事件记一个标记，延后一拍清除。 */
+let composing = false;
+input.addEventListener('compositionstart', () => { composing = true; });
+input.addEventListener('compositionend', () => { setTimeout(() => { composing = false; }, 0); });
+
 input.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); }
+  if (e.key !== 'Enter' || e.shiftKey) return;
+  // isComposing / keyCode 229 是标准信号；composing 兜住那些不报 isComposing 的输入法
+  if (e.isComposing || composing || e.keyCode === 229) return;
+  e.preventDefault();
+  submit();
 });
 input.addEventListener('input', () => {
   input.style.height = 'auto';
