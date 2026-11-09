@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pro Git 知识库助手</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --panel: #ffffff;
+    --line: #e3e3e8;
+    --text: #1b1b1f;
+    --muted: #6e6e7a;
+    --faint: #9a9aa6;
+    --accent: #0f6e56;
+    --accent-soft: #eaf4f0;
+    --code-bg: #f4f4f6;
+    --warn-bg: #fdf6e3;
+    --warn-line: #e6c86a;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.65 -apple-system, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+  .app { width: 100%; max-width: 860px; height: 100%; display: flex; flex-direction: column; padding: 0 16px; }
+
+  header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 4px 12px; border-bottom: 1px solid var(--line);
+  }
+  .brand { font-size: 15px; font-weight: 600; letter-spacing: .2px; }
+  .meta { font-size: 12px; color: var(--faint); flex: 1; }
+  .ghost {
+    border: 1px solid var(--line); background: var(--panel); color: var(--muted);
+    border-radius: 7px; padding: 5px 11px; font-size: 12px; cursor: pointer;
+    font-family: inherit;
+  }
+  .ghost:hover { border-color: #c9c9d2; color: var(--text); }
+
+  main { flex: 1; overflow-y: auto; padding: 18px 4px 8px; scroll-behavior: smooth; }
+  main::-webkit-scrollbar { width: 8px; }
+  main::-webkit-scrollbar-thumb { background: #d8d8de; border-radius: 4px; }
+
+  .empty {
+    color: var(--faint); font-size: 13px; text-align: center; padding: 60px 20px;
+    line-height: 2;
+  }
+  .empty b { color: var(--muted); font-weight: 500; }
+
+  .msg { margin-bottom: 20px; }
+  .msg.me { display: flex; justify-content: flex-end; }
+  .msg.me .bubble {
+    background: var(--accent); color: #fff; border-radius: 12px 12px 2px 12px;
+    padding: 9px 14px; max-width: 78%; white-space: pre-wrap; word-break: break-word;
+  }
+  .msg.bot .bubble {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px 12px 12px 2px; padding: 14px 18px;
+    word-break: break-word;
+  }
+  .msg.bot .bubble > *:first-child { margin-top: 0; }
+  .msg.bot .bubble > *:last-child { margin-bottom: 0; }
+
+  .trace { margin: 0 0 8px 2px; font-size: 12px; color: var(--faint); }
+  .trace .row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+  .trace .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex: none; }
+  .trace .hits { margin: 2px 0 8px 15px; color: var(--faint); font-size: 11.5px; line-height: 1.9; }
+  .trace .hits span { display: inline-block; margin-right: 10px; }
+
+  .thinking { color: var(--faint); font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .thinking i {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block;
+    animation: blink 1.2s infinite;
+  }
+  .thinking i:nth-child(2) { animation-delay: .2s; }
+  .thinking i:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%, 60%, 100% { opacity: .25; } 30% { opacity: 1; } }
+
+  .warn {
+    background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 8px;
+    padding: 9px 13px; font-size: 12px; color: #7a5c12; margin-top: 10px; line-height: 1.6;
+  }
+  .err { color: #a32d2d; font-size: 13px; }
+
+  /* 正文排版 */
+  .bubble h1, .bubble h2, .bubble h3 { font-size: 14px; font-weight: 600; margin: 18px 0 8px; }
+  .bubble h1 { font-size: 15px; }
+  .bubble p { margin: 9px 0; }
+  .bubble ul, .bubble ol { margin: 9px 0; padding-left: 22px; }
+  .bubble li { margin: 3px 0; }
+  .bubble strong { font-weight: 600; }
+  .bubble code {
+    background: var(--code-bg); border-radius: 4px; padding: 1.5px 5px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px;
+  }
+  .bubble pre {
+    background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px 14px; overflow-x: auto; margin: 10px 0;
+  }
+  .bubble pre code { background: none; padding: 0; font-size: 12.5px; line-height: 1.6; }
+  .bubble table { border-collapse: collapse; margin: 10px 0; font-size: 13px; display: block; overflow-x: auto; }
+  /* 单元格里必须把 word-break 改回 normal：
+     父级 .bubble 的 break-word 会让「p236」这种短词的最小内容宽度塌成一个字符，
+     自动列宽于是把最窄的「出处」列压到一字宽，页码被折成 p23 / 6 并截断。
+     overflow-wrap 只在真的放不下时才断词，不会再影响列宽计算。 */
+  .bubble th, .bubble td {
+    border: 1px solid var(--line); padding: 6px 11px; text-align: left;
+    word-break: normal; overflow-wrap: break-word;
+  }
+  .bubble th { background: #fafafb; font-weight: 600; }
+  .bubble blockquote {
+    border-left: 2px solid var(--line); margin: 10px 0; padding: 2px 0 2px 12px; color: var(--muted);
+  }
+  .bubble hr { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
+
+  footer { padding: 10px 0 18px; }
+  .composer {
+    display: flex; gap: 10px; align-items: flex-end;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 10px 12px; transition: border-color .15s;
+  }
+  .composer:focus-within { border-color: #bfd8cf; }
+  textarea {
+    flex: 1; border: none; outline: none; resize: none; font: inherit; color: var(--text);
+    background: transparent; max-height: 160px; line-height: 1.6; padding: 2px 0;
+  }
+  textarea::placeholder { color: var(--faint); }
+  #send {
+    background: var(--accent); color: #fff; border: none; border-radius: 9px;
+    padding: 8px 16px; font-size: 13px; cursor: pointer; font-family: inherit; flex: none;
+  }
+  #send:disabled { background: #b8c9c2; cursor: default; }
+  .hint { font-size: 11.5px; color: var(--faint); margin-top: 7px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">Pro Git 知识库助手</div>
+    <div class="meta" id="meta">《Pro Git》中文版第 2 版 · 805 个文本块 · qwen-plus</div>
+    <button class="ghost" id="newchat">新对话</button>
+  </header>
+
+  <main id="log">
+    <div class="empty" id="empty">
+      只根据《Pro Git》原文回答，会给页码出处。<br>
+      <b>试试：</b>撤销已经推送到远端的提交 ／ rebase 和 merge 有什么区别 ／ git stash 有什么用
+    </div>
+  </main>
+
+  <footer>
+    <div class="composer">
+      <textarea id="q" rows="1" placeholder="问点 Git 的事…"></textarea>
+      <button id="send">发送</button>
+    </div>
+    <div class="hint">Enter 发送 · Shift + Enter 换行 · 检索不到的会直说没有</div>
+  </footer>
+</div>
+
+<script>
+const log = document.getElementById('log');
+const input = document.getElementById('q');
+const sendBtn = document.getElementById('send');
+const empty = document.getElementById('empty');
+const newBtn = document.getElementById('newchat');
+
+let session = localStorage.getItem('progit-session') || newSessionId();
+localStorage.setItem('progit-session', session);
+let busy = false;
+let ready = false;
+
+function newSessionId() {
+  return crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2);
+}
+
+/* ---------- 对话持久化 ----------
+   服务端把 messages 存在内存里（进程一退就没），所以刷新页面时要靠 localStorage
+   把界面恢复回来，否则就会出现「界面空的、模型却记得」的错位。
+   服务重启则相反：界面还在、上下文没了 —— 用 boot 标识识别后主动清掉。 */
+function persist() {
+  const items = [];
+  log.querySelectorAll('.msg').forEach(node => {
+    const clone = node.cloneNode(true);
+    clone.querySelectorAll('.thinking').forEach(n => n.remove());
+    items.push(clone.outerHTML);
+  });
+  localStorage.setItem('progit-log', JSON.stringify({ session, items: items.slice(-30) }));
+}
+
+function restore() {
+  const raw = localStorage.getItem('progit-log');
+  if (!raw) return;
+  try {
+    const data = JSON.parse(raw);
+    if (!Array.isArray(data.items) || !data.items.length) return;
+    data.items.forEach(html => {
+      const holder = document.createElement('div');
+      holder.innerHTML = html;
+      if (holder.firstElementChild) log.appendChild(holder.firstElementChild);
+    });
+    empty.style.display = 'none';
+  } catch (e) { /* 存的东西坏了就当没有 */ }
+}
+
+async function init() {
+  sendBtn.disabled = true;
+  let notice = '';
+  try {
+    const resp = await fetch('/api/hello');
+    const info = await resp.json();
+    const prevBoot = localStorage.getItem('progit-boot');
+    if (prevBoot && prevBoot !== info.boot) {
+      localStorage.removeItem('progit-log');
+      session = newSessionId();
+      localStorage.setItem('progit-session', session);
+      notice = '服务重启过，服务端内存里的对话上下文已清空，界面是新的。';
+    }
+    localStorage.setItem('progit-boot', info.boot);
+    if (info.sessions) {
+      document.getElementById('meta').textContent =
+        `《Pro Git》中文版第 2 版 · 805 个文本块 · qwen-plus`;
+    }
+  } catch (e) {
+    notice = '连不上服务端，请确认 server.py 还在运行。';
+  }
+
+  restore();
+  if (notice) {
+    const n = document.createElement('div');
+    n.className = 'msg bot';
+    n.innerHTML = '<div class="warn" style="margin:0">' + notice + '</div>';
+    log.appendChild(n);
+  }
+  ready = true;
+  sendBtn.disabled = false;
+  input.focus();
+  scrollBottom();
+}
+
+/* ---------- 极简 Markdown 渲染 ---------- */
+function esc(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function inline(s) {
+  return s
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
+function md(src) {
+  const lines = src.split('\n');
+  const out = [];
+  let i = 0;
+  let para = [];
+
+  const flush = () => {
+    if (para.length) {
+      out.push('<p>' + inline(esc(para.join(' '))) + '</p>');
+      para = [];
+    }
+  };
+
+  while (i < lines.length) {
+    const line = lines[i];
+
+    if (/^```/.test(line)) {
+      flush();
+      i++;
+      const buf = [];
+      while (i < lines.length && !/^```/.test(lines[i])) buf.push(lines[i++]);
+      i++;
+      out.push('<pre><code>' + esc(buf.join('\n')) + '</code></pre>');
+      continue;
+    }
+
+    const next = lines[i + 1] || '';
+    if (/^\s*\|.*\|\s*$/.test(line) && /^\s*\|[\s:|-]+\|\s*$/.test(next)) {
+      flush();
+      const cells = r => r.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+      let html = '<table><thead><tr>' + cells(line).map(c => '<th>' + inline(esc(c)) + '</th>').join('') + '</tr></thead><tbody>';
+      i += 2;
+      while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) {
+        html += '<tr>' + cells(lines[i]).map(c => '<td>' + inline(esc(c)) + '</td>').join('') + '</tr>';
+        i++;
+      }
+      out.push(html + '</tbody></table>');
+      continue;
+    }
+
+    if (/^\s{0,3}(#{1,6})\s+/.test(line)) {
+      flush();
+      const level = Math.min(line.match(/^\s{0,3}(#{1,6})/)[1].length, 3);
+      out.push(`<h${level}>` + inline(esc(line.replace(/^\s*#{1,6}\s+/, ''))) + `</h${level}>`);
+      i++;
+      continue;
+    }
+
+    if (/^\s*([-*+])\s+/.test(line) || /^\s*\d+\.\s+/.test(line)) {
+      flush();
+      const ordered = /^\s*\d+\./.test(line);
+      const tag = ordered ? 'ol' : 'ul';
+      let html = `<${tag}>`;
+      while (i < lines.length && (/^\s*([-*+])\s+/.test(lines[i]) || /^\s*\d+\.\s+/.test(lines[i]))) {
+        html += '<li>' + inline(esc(lines[i].replace(/^\s*([-*+]|\d+\.)\s+/, ''))) + '</li>';
+        i++;
+      }
+      out.push(html + `</${tag}>`);
+      continue;
+    }
+
+    if (/^\s*>\s?/.test(line)) {
+      flush();
+      const buf = [];
+      while (i < lines.length && /^\s*>\s?/.test(lines[i])) {
+        buf.push(lines[i].replace(/^\s*>\s?/, ''));
+        i++;
+      }
+      out.push('<blockquote>' + inline(esc(buf.join(' '))) + '</blockquote>');
+      continue;
+    }
+
+    if (/^\s*([-*_])\1{2,}\s*$/.test(line)) {
+      flush();
+      out.push('<hr>');
+      i++;
+      continue;
+    }
+
+    if (!line.trim()) { flush(); i++; continue; }
+
+    para.push(line.trim());
+    i++;
+  }
+  flush();
+  return out.join('\n');
+}
+
+/* ---------- 消息渲染 ---------- */
+function addUser(text) {
+  empty.style.display = 'none';
+  const el = document.createElement('div');
+  el.className = 'msg me';
+  el.innerHTML = '<div class="bubble"></div>';
+  el.querySelector('.bubble').textContent = text;
+  log.appendChild(el);
+  scrollBottom();
+}
+
+function addBotShell() {
+  const el = document.createElement('div');
+  el.className = 'msg bot';
+  el.innerHTML = '<div class="trace"></div><div class="bubble"><div class="thinking"><i></i><i></i><i></i><span>检索原文中…</span></div></div>';
+  log.appendChild(el);
+  scrollBottom();
+  return el;
+}
+
+function addTrace(shell, data) {
+  const trace = shell.querySelector('.trace');
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.innerHTML = '<span class="dot"></span>';
+  const scores = data.hits.map(h => h.score.toFixed(2)).join(' / ');
+  row.appendChild(document.createTextNode(`检索「${data.query}」· ${data.hits.length} 块 · 相似度 ${scores}`));
+  trace.appendChild(row);
+
+  const hits = document.createElement('div');
+  hits.className = 'hits';
+  hits.innerHTML = data.hits.map(h => {
+    const pages = h.pages.length === 1 ? 'p' + h.pages[0] : `p${h.pages[0]}-${h.pages[h.pages.length - 1]}`;
+    return `<span>${h.score.toFixed(2)} ${h.path} ${pages}</span>`;
+  }).join('');
+  trace.appendChild(hits);
+  scrollBottom();
+}
+
+function scrollBottom() {
+  log.scrollTop = log.scrollHeight;
+}
+
+/* ---------- 发送 ---------- */
+async function ask(question) {
+  busy = true;
+  sendBtn.disabled = true;
+  addUser(question);
+  const shell = addBotShell();
+  const bubble = shell.querySelector('.bubble');
+
+  let got = false;
+  // 收到 answer / error 就说明这一轮已经结束，可以主动收流，
+  // 不必等服务端关连接（服务端异常时也保证界面能解锁）
+  let finished = false;
+  try {
+    const resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session, question })
+    });
+    if (!resp.ok || !resp.body) throw new Error('HTTP ' + resp.status);
+
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      let idx;
+      while ((idx = buffer.indexOf('\n\n')) >= 0) {
+        const chunk = buffer.slice(0, idx);
+        buffer = buffer.slice(idx + 2);
+
+        let event = 'message';
+        let data = '';
+        for (const line of chunk.split('\n')) {
+          if (line.startsWith('event: ')) event = line.slice(7).trim();
+          else if (line.startsWith('data: ')) data += line.slice(6);
+        }
+        if (!data) continue;
+        const payload = JSON.parse(data);
+
+        if (event === 'trace') {
+          addTrace(shell, payload);
+          bubble.innerHTML = '<div class="thinking"><i></i><i></i><i></i><span>读到原文，组织答案中…</span></div>';
+        } else if (event === 'answer') {
+          got = true;
+          finished = true;
+          bubble.innerHTML = md(payload.answer || '（空）');
+        } else if (event === 'warn') {
+          const w = document.createElement('div');
+          w.className = 'warn';
+          w.textContent = '⚠ ' + payload.warnings.join('；');
+          bubble.appendChild(w);
+        } else if (event === 'error') {
+          got = true;
+          finished = true;
+          bubble.innerHTML = '<div class="err">请求失败：' + esc(payload.message) + '</div>';
+        }
+      }
+      if (finished) {
+        // 主动结束读取：并发连接不会残留，busy 立刻在 finally 里复位
+        try { await reader.cancel(); } catch (err) { /* 已关闭就忽略 */ }
+        break;
+      }
+    }
+    if (!got) bubble.innerHTML = '<div class="err">连接中断，没有收到答案。</div>';
+  } catch (e) {
+    bubble.innerHTML = '<div class="err">请求失败：' + esc(String(e.message || e)) + '</div>';
+  } finally {
+    busy = false;
+    sendBtn.disabled = false;
+    input.focus();
+    scrollBottom();
+    persist();
+  }
+}
+
+function submit() {
+  const q = input.value.trim();
+  if (!q || busy || !ready) return;
+  input.value = '';
+  input.style.height = 'auto';
+  ask(q);
+}
+
+sendBtn.addEventListener('click', submit);
+
+/* 输入法（中文/日文等）组词状态跟踪。
+   组词时按回车是「上屏候选词」，不是发送；但浏览器在 keydown 里给的 isComposing
+   并不可靠（Safari / 部分输入法会把确认候选的那次回车报成普通按键），
+   所以自己用 composition 事件记一个标记，延后一拍清除。 */
+let composing = false;
+input.addEventListener('compositionstart', () => { composing = true; });
+input.addEventListener('compositionend', () => { setTimeout(() => { composing = false; }, 0); });
+
+input.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' || e.shiftKey) return;
+  // isComposing / keyCode 229 是标准信号；composing 兜住那些不报 isComposing 的输入法
+  if (e.isComposing || composing || e.keyCode === 229) return;
+  e.preventDefault();
+  submit();
+});
+input.addEventListener('input', () => {
+  input.style.height = 'auto';
+  input.style.height = Math.min(input.scrollHeight, 160) + 'px';
+});
+newBtn.addEventListener('click', async () => {
+  if (busy) return;
+  await fetch('/api/reset', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ session })
+  });
+  log.querySelectorAll('.msg').forEach(n => n.remove());
+  localStorage.removeItem('progit-log');
+  empty.style.display = 'block';
+  input.focus();
+});
+init();
+</script>
+</body>
+</html>

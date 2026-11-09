@@ -1,0 +1,12 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'row' }}>
+    <Box style={{ width: 24, height: 720, background: '#1E4FA8' }} />
+    <Box style={{ width: 1256, height: 720, paddingLeft: 96, paddingRight: 96, flexDirection: 'column', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#1A2230', lineHeight: 1.3 }}>谢谢，请指正</Text>
+        <Box style={{ height: 22 }} />
+        <Text style={{ fontSize: 20, color: '#4A5568' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Box style={{ height: 30 }} />
+        <Box style={{ height: 1, background: '#D6DCE5', width: 520 }} />
+        <Box style={{ height: 22 }} />
+        <Text style={{ fontSize: 16, color: '#8B97A8' }}>计算机科学与技术 · 唐成纲　2026011352　|　2026 年 11 月</Text>
+    </Box>
+</Slide>

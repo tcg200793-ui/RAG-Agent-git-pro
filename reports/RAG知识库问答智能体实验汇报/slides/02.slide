@@ -1,0 +1,33 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'row' }}>
+    <Box style={{ width: 340, height: 720, paddingLeft: 72, paddingTop: 120, flexDirection: 'column' }}>
+        <Text style={{ fontSize: 44, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1.2 }}>目录</Text>
+        <Box style={{ height: 10 }} />
+        <Text style={{ fontSize: 16, color: '#8B97A8', letterSpacing: 3 }}>CONTENTS</Text>
+    </Box>
+    <Box style={{ width: 868, height: 720, paddingRight: 72, paddingTop: 96, paddingBottom: 96, flexDirection: 'column', justifyContent: 'center' }}>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', height: 118, borderBottom: '1px solid #E5E7EB' }}>
+            <Text style={{ width: 92, fontSize: 40, fontWeight: 'bold', color: '#1E4FA8' }}>01</Text>
+            <Text style={{ width: 300, fontSize: 26, fontWeight: 'bold', color: '#1A2230' }}>语料与预处理</Text>
+            <Text style={{ flex: 1, fontSize: 15, color: '#8B97A8' }}>Corpus &amp; Preprocessing</Text>
+            <Text style={{ width: 110, fontSize: 18, color: '#8B97A8', textAlign: 'right' }}>P03 — P07</Text>
+        </Box>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', height: 118, borderBottom: '1px solid #E5E7EB' }}>
+            <Text style={{ width: 92, fontSize: 40, fontWeight: 'bold', color: '#1E4FA8' }}>02</Text>
+            <Text style={{ width: 300, fontSize: 26, fontWeight: 'bold', color: '#1A2230' }}>向量化与检索</Text>
+            <Text style={{ flex: 1, fontSize: 15, color: '#8B97A8' }}>Embedding &amp; Retrieval</Text>
+            <Text style={{ width: 110, fontSize: 18, color: '#8B97A8', textAlign: 'right' }}>P08 — P12</Text>
+        </Box>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', height: 118, borderBottom: '1px solid #E5E7EB' }}>
+            <Text style={{ width: 92, fontSize: 40, fontWeight: 'bold', color: '#1E4FA8' }}>03</Text>
+            <Text style={{ width: 300, fontSize: 26, fontWeight: 'bold', color: '#1A2230' }}>问答智能体</Text>
+            <Text style={{ flex: 1, fontSize: 15, color: '#8B97A8' }}>Retrieval-Augmented Agent</Text>
+            <Text style={{ width: 110, fontSize: 18, color: '#8B97A8', textAlign: 'right' }}>P13 — P16</Text>
+        </Box>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', height: 118, borderBottom: '1px solid #E5E7EB' }}>
+            <Text style={{ width: 92, fontSize: 40, fontWeight: 'bold', color: '#1E4FA8' }}>04</Text>
+            <Text style={{ width: 300, fontSize: 26, fontWeight: 'bold', color: '#1A2230' }}>结果与反思</Text>
+            <Text style={{ flex: 1, fontSize: 15, color: '#8B97A8' }}>Results &amp; Reflection</Text>
+            <Text style={{ width: 110, fontSize: 18, color: '#8B97A8', textAlign: 'right' }}>P17 — P19</Text>
+        </Box>
+    </Box>
+</Slide>

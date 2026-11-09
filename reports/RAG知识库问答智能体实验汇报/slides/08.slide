@@ -1,0 +1,10 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'row' }}>
+    <Box style={{ width: 440, height: 720, background: '#1E4FA8', paddingLeft: 60, paddingBottom: 76, flexDirection: 'column', justifyContent: 'flex-end' }}>
+        <Text style={{ fontSize: 168, fontWeight: 'bold', color: '#3D7BD9', lineHeight: 1 }}>02</Text>
+    </Box>
+    <Box style={{ width: 840, height: 720, paddingLeft: 80, paddingRight: 80, flexDirection: 'column', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 46, fontWeight: 'bold', color: '#1A2230', lineHeight: 1.3 }}>向量化与检索</Text>
+        <Box style={{ height: 24 }} />
+        <Text style={{ fontSize: 19, lineHeight: 1.9, color: '#4A5568' }}>text-embedding-v4 · 精确最近邻<br />BM25 基线与实测对比</Text>
+    </Box>
+</Slide>

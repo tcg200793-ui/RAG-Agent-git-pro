@@ -1,0 +1,75 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>局限与下一步</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>04 · DISCUSSION</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 28, paddingBottom: 18, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', height: 414 }}>
+            <Box style={{ width: 650, flexDirection: 'column', paddingRight: 34 }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>目前明确存在的四个局限</Text>
+                <Box style={{ height: 14 }} />
+                <Box style={{ flexDirection: 'row', height: 94, borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ width: 44, fontSize: 20, fontWeight: 'bold', color: '#3D7BD9' }}>①</Text>
+                    <Box style={{ flexDirection: 'column', flex: 1 }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>没有自动评测集</Text>
+                        <Box style={{ height: 6 }} />
+                        <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>效果目前靠人工判读三个示例，「好到什么程度」不可量化。</Text>
+                    </Box>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 94, borderBottom: '1px solid #E5E7EB', paddingTop: 12 }}>
+                    <Text style={{ width: 44, fontSize: 20, fontWeight: 'bold', color: '#3D7BD9' }}>②</Text>
+                    <Box style={{ flexDirection: 'column', flex: 1 }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>语料停在 Git 2.x 早期</Text>
+                        <Box style={{ height: 6 }} />
+                        <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>revert 的完整流程、force-with-lease 等书中未写，问到只能答「没有」。</Text>
+                    </Box>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 94, borderBottom: '1px solid #E5E7EB', paddingTop: 12 }}>
+                    <Text style={{ width: 44, fontSize: 20, fontWeight: 'bold', color: '#3D7BD9' }}>③</Text>
+                    <Box style={{ flexDirection: 'column', flex: 1 }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>两路召回没有融合</Text>
+                        <Box style={{ height: 6 }} />
+                        <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>BM25 与向量各跑各的，谁也没用上对方的强项。</Text>
+                    </Box>
+                </Box>
+                <Box style={{ flexDirection: 'row', height: 94, paddingTop: 12 }}>
+                    <Text style={{ width: 44, fontSize: 20, fontWeight: 'bold', color: '#3D7BD9' }}>④</Text>
+                    <Box style={{ flexDirection: 'column', flex: 1 }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>切块按字符数而非 token</Text>
+                        <Box style={{ height: 6 }} />
+                        <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>中文与代码的 token 密度不同，长代码块对上下文的占用不可控。</Text>
+                    </Box>
+                </Box>
+            </Box>
+            <Box style={{ width: 510, flexDirection: 'column', paddingLeft: 34, borderLeft: '1px solid #D6DCE5' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>接下来要做的三件事</Text>
+                <Box style={{ height: 16 }} />
+                <Box style={{ height: 106, background: '#F7F9FC', borderLeft: '3px solid #1E4FA8', paddingLeft: 18, paddingRight: 16, paddingTop: 14, flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>建 30 题评测集</Text>
+                    <Box style={{ height: 6 }} />
+                    <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>含 10 道书中无答案的题，分别考察「答对」与「承认不知道」。</Text>
+                </Box>
+                <Box style={{ height: 16 }} />
+                <Box style={{ height: 106, background: '#F7F9FC', borderLeft: '3px solid #1E4FA8', paddingLeft: 18, paddingRight: 16, paddingTop: 14, flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>RRF 融合两路召回</Text>
+                    <Box style={{ height: 6 }} />
+                    <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>先合并排序再交给模型，用名次而非分数量纲，避免两套分数量纲不可比。</Text>
+                </Box>
+                <Box style={{ height: 16 }} />
+                <Box style={{ height: 106, background: '#F7F9FC', borderLeft: '3px solid #1E4FA8', paddingLeft: 18, paddingRight: 16, paddingTop: 14, flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>审计范围扩到命令名</Text>
+                    <Box style={{ height: 6 }} />
+                    <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>把 git xxx 形式的命令一并纳入比对，补上失败案例暴露的缺口。</Text>
+                </Box>
+            </Box>
+        </Box>
+        <Box style={{ height: 18 }} />
+        <Box style={{ height: 66, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>这个项目最确定的结论不是「RAG 能用」，而是<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>它的表现上限由语料和评测决定，而不由模型决定</span>。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>19 / 20</Text>
+    </Box>
+</Slide>

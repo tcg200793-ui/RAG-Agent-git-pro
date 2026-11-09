@@ -1,0 +1,67 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>防幻觉：软约束之外的硬兜底</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>03 · AGENT</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 28, paddingBottom: 18, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', height: 200 }}>
+            <Box style={{ width: 566, height: 200, border: '1px solid #D6DCE5', paddingLeft: 20, paddingRight: 20, paddingTop: 16, flexDirection: 'column' }}>
+                <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#3D7BD9', letterSpacing: 1 }}>防线一</Text>
+                    <Box style={{ width: 10 }} />
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>提示词里的参数边界</Text>
+                </Box>
+                <Box style={{ height: 10 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>代码块中的命令与长短选项必须能在检索原文里找到；书中没有的新参数一律不得补充。</Text>
+                <Box style={{ height: 8 }} />
+                <Text style={{ fontSize: 15, lineHeight: 1.6, color: '#8B97A8' }}>防的是：模型用预训练记忆补齐它「觉得」更安全的参数。</Text>
+            </Box>
+            <Box style={{ width: 24 }} />
+            <Box style={{ width: 566, height: 200, border: '1px solid #D6DCE5', paddingLeft: 20, paddingRight: 20, paddingTop: 16, flexDirection: 'column' }}>
+                <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#3D7BD9', letterSpacing: 1 }}>防线二</Text>
+                    <Box style={{ width: 10 }} />
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>代码侧的答案审计</Text>
+                </Box>
+                <Box style={{ height: 10 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>正则抽出答案里所有长选项，逐个与本轮检索原文比对，缺失的当场黄字告警。</Text>
+                <Box style={{ height: 8 }} />
+                <Text style={{ fontSize: 15, lineHeight: 1.6, color: '#8B97A8' }}>防的是：模型绕过提示词——这一层不依赖模型配合。</Text>
+            </Box>
+        </Box>
+        <Box style={{ height: 24 }} />
+        <Box style={{ flexDirection: 'row', height: 200 }}>
+            <Box style={{ width: 566, height: 200, border: '1px solid #D6DCE5', paddingLeft: 20, paddingRight: 20, paddingTop: 16, flexDirection: 'column' }}>
+                <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#3D7BD9', letterSpacing: 1 }}>防线三</Text>
+                    <Box style={{ width: 10 }} />
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>轮次与 top_k 硬上限</Text>
+                </Box>
+                <Box style={{ height: 10 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>检索最多 4 轮，单次最多返回 8 块；到限即追加一条「仅基于现有材料作答」的指令。</Text>
+                <Box style={{ height: 8 }} />
+                <Text style={{ fontSize: 15, lineHeight: 1.6, color: '#8B97A8' }}>防的是：检索不收敛的死循环，以及上下文被一次撑爆。</Text>
+            </Box>
+            <Box style={{ width: 24 }} />
+            <Box style={{ width: 566, height: 200, border: '1px solid #D6DCE5', paddingLeft: 20, paddingRight: 20, paddingTop: 16, flexDirection: 'column' }}>
+                <Box style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#3D7BD9', letterSpacing: 1 }}>防线四</Text>
+                    <Box style={{ width: 10 }} />
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>历史裁剪对齐消息边界</Text>
+                </Box>
+                <Box style={{ height: 10 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.6, color: '#4A5568' }}>裁剪多轮历史时把裁剪点向后对齐到 user 消息，保证 assistant 的工具调用与结果不被拆开。</Text>
+                <Box style={{ height: 8 }} />
+                <Text style={{ fontSize: 15, lineHeight: 1.6, color: '#8B97A8' }}>防的是：tool 消息成为孤儿，被接口直接拒绝。</Text>
+            </Box>
+        </Box>
+        <Box style={{ height: 22 }} />
+        <Box style={{ height: 66, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>提示词是软的，能被绕过；<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>代码是硬的，挡得住</span>。两者都要，但别把希望全押在前者。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>16 / 20</Text>
+    </Box>
+</Slide>

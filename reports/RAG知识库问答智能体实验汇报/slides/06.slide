@@ -1,0 +1,67 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>结构化切块：805 块是怎么来的</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>01 · CORPUS</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 30, paddingBottom: 18, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', height: 172 }}>
+            <Box style={{ width: 386, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 76, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>805<span style={{ fontSize: 26, fontWeight: 'bold', color: '#3D7BD9' }}> 块</span></Text>
+                <Box style={{ height: 12 }} />
+                <Text style={{ fontSize: 17, lineHeight: 1.5, color: '#4A5568' }}>去掉页码、图注、目录点线后<br />留下的语义块</Text>
+            </Box>
+            <Box style={{ width: 386, flexDirection: 'column', paddingLeft: 24 }}>
+                <Text style={{ fontSize: 76, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>718<span style={{ fontSize: 26, fontWeight: 'bold', color: '#3D7BD9' }}> 字</span></Text>
+                <Box style={{ height: 12 }} />
+                <Text style={{ fontSize: 17, lineHeight: 1.5, color: '#4A5568' }}>单块字数中位数<br />p90 = 868 字，最长 2171 字</Text>
+            </Box>
+            <Box style={{ width: 388, flexDirection: 'column', paddingLeft: 24 }}>
+                <Text style={{ fontSize: 76, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>550<span style={{ fontSize: 26, fontWeight: 'bold', color: '#3D7BD9' }}> 块</span></Text>
+                <Box style={{ height: 12 }} />
+                <Text style={{ fontSize: 17, lineHeight: 1.5, color: '#4A5568' }}>含代码块，占 68%<br />Git 知识天然以命令示例承载</Text>
+            </Box>
+        </Box>
+        <Box style={{ height: 28 }} />
+        <Box style={{ flexDirection: 'row', justifyContent: 'space-between', height: 218 }}>
+            <Box style={{ width: 254, height: 218, border: '1px solid #D6DCE5', paddingLeft: 18, paddingRight: 18, paddingTop: 16, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 13, color: '#3D7BD9', letterSpacing: 1 }}>STEP 1</Text>
+                <Box style={{ height: 8 }} />
+                <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#1A2230' }}>字号重建层级</Text>
+                <Box style={{ height: 10 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.55, color: '#4A5568' }}>22 / 18 / 13pt 分别对应章、节、小节，9pt 纯数字判为页码丢弃</Text>
+            </Box>
+            <Text style={{ fontSize: 20, color: '#3D7BD9', lineHeight: 1 }}>→</Text>
+            <Box style={{ width: 254, height: 218, border: '1px solid #D6DCE5', paddingLeft: 18, paddingRight: 18, paddingTop: 16, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 13, color: '#3D7BD9', letterSpacing: 1 }}>STEP 2</Text>
+                <Box style={{ height: 8 }} />
+                <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#1A2230' }}>按小节分组</Text>
+                <Box style={{ height: 10 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.55, color: '#4A5568' }}>每个节、小节标题开一个新组，组内记录「章 &gt; 节 &gt; 小节」路径</Text>
+            </Box>
+            <Text style={{ fontSize: 20, color: '#3D7BD9', lineHeight: 1 }}>→</Text>
+            <Box style={{ width: 254, height: 218, border: '1px solid #D6DCE5', paddingLeft: 18, paddingRight: 18, paddingTop: 16, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 13, color: '#3D7BD9', letterSpacing: 1 }}>STEP 3</Text>
+                <Box style={{ height: 8 }} />
+                <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#1A2230' }}>组内打包</Text>
+                <Box style={{ height: 10 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.55, color: '#4A5568' }}>上限 800 字，块间保留 120 字重叠，短于 150 字的碎块并入前块</Text>
+            </Box>
+            <Text style={{ fontSize: 20, color: '#3D7BD9', lineHeight: 1 }}>→</Text>
+            <Box style={{ width: 254, height: 218, border: '1px solid #D6DCE5', paddingLeft: 18, paddingRight: 18, paddingTop: 16, flexDirection: 'column' }}>
+                <Text style={{ fontSize: 13, color: '#3D7BD9', letterSpacing: 1 }}>STEP 4</Text>
+                <Box style={{ height: 8 }} />
+                <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#1A2230' }}>拼路径锚点</Text>
+                <Box style={{ height: 10 }} />
+                <Text style={{ fontSize: 16, lineHeight: 1.55, color: '#4A5568' }}>块首拼上《Pro Git》章节路径，给向量一个语境坐标，孤块也能被读懂</Text>
+            </Box>
+        </Box>
+        <Box style={{ height: 26 }} />
+        <Box style={{ height: 66, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>块是检索的最小单位：<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>切粗了召回不准，切碎了丢上下文</span>。718 字中位数是这两个方向上的折中。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>06 / 20</Text>
+    </Box>
+</Slide>

@@ -1,0 +1,63 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>语料选型：为什么是《Pro Git》</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>01 · CORPUS</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 32, paddingBottom: 18, flexDirection: 'column' }}>
+        <Box style={{ flexDirection: 'row', height: 424 }}>
+            <Box style={{ width: 640, flexDirection: 'column', paddingRight: 34 }}>
+                <Box style={{ flexDirection: 'column', height: 140, borderBottom: '1px solid #E5E7EB', paddingTop: 6 }}>
+                    <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#1A2230' }}>Ⅰ　答案可核验</Text>
+                    <Box style={{ height: 10 }} />
+                    <Text style={{ fontSize: 18, lineHeight: 1.65, color: '#4A5568' }}>Git 命令有权威文档与唯一正确行为，模型回答对错可逐条比对，才谈得上评估幻觉率。</Text>
+                </Box>
+                <Box style={{ flexDirection: 'column', height: 140, borderBottom: '1px solid #E5E7EB', paddingTop: 18 }}>
+                    <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#1A2230' }}>Ⅱ　贴近真实技术问答</Text>
+                    <Box style={{ height: 10 }} />
+                    <Text style={{ fontSize: 18, lineHeight: 1.65, color: '#4A5568' }}>官方中译本 v2.1.80，501 页；中文叙述夹英文命令，与用户实际提问方式一致。</Text>
+                </Box>
+                <Box style={{ flexDirection: 'column', height: 140, paddingTop: 18 }}>
+                    <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#1A2230' }}>Ⅲ　结构规整可切分</Text>
+                    <Box style={{ height: 10 }} />
+                    <Text style={{ fontSize: 18, lineHeight: 1.65, color: '#4A5568' }}>字体全嵌入且带 ToUnicode 映射、书签树完整，具备做层级切块的技术前提。</Text>
+                </Box>
+            </Box>
+            <Box style={{ width: 460, flexDirection: 'column', paddingLeft: 34, borderLeft: '1px solid #D6DCE5' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1E4FA8' }}>语料体检结果</Text>
+                <Box style={{ height: 14 }} />
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', height: 46, alignItems: 'center', borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 17, color: '#8B97A8' }}>正文页数</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>501 页（正文 p17–497）</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', height: 46, alignItems: 'center', borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 17, color: '#8B97A8' }}>文件</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>19 MB · PDF 1.4 未加密</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', height: 46, alignItems: 'center', borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 17, color: '#8B97A8' }}>字体</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>20 个全部嵌入</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', height: 46, alignItems: 'center', borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 17, color: '#8B97A8' }}>书签</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>一级 14 条 · 二级 101 条</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', height: 46, alignItems: 'center', borderBottom: '1px solid #E5E7EB' }}>
+                    <Text style={{ fontSize: 17, color: '#8B97A8' }}>代码块</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>真文本（RobotoMono）</Text>
+                </Box>
+                <Box style={{ flexDirection: 'row', justifyContent: 'space-between', height: 46, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 17, color: '#8B97A8' }}>完整性</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#1A2230' }}>sha256 校验通过</Text>
+                </Box>
+            </Box>
+        </Box>
+        <Box style={{ height: 26 }} />
+        <Box style={{ height: 68, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>选语料的标准不是「书好不好」，而是<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>答案能不能被核验、结构能不能被程序解析</span>——两条都满足才值得投入。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>04 / 20</Text>
+    </Box>
+</Slide>

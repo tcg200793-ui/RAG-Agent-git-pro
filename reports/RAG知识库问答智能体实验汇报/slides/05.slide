@@ -1,0 +1,57 @@
+<Slide style={{ padding: 0, background: '#FFFFFF', flexDirection: 'column' }}>
+    <Box style={{ height: 68, background: '#1E4FA8', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#FFFFFF' }}>结构探查：四个预判被实测推翻</Text>
+        <Text style={{ fontSize: 15, color: '#B9CDEB', letterSpacing: 1 }}>01 · CORPUS</Text>
+    </Box>
+    <Box style={{ height: 592, paddingLeft: 60, paddingRight: 60, paddingTop: 32, paddingBottom: 18, flexDirection: 'column' }}>
+        <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#4A5568' }}>动手切块之前，先写了两个只读脚本遍历全书，把字号、字体、书签、页边文本全部统计一遍。结论与「通用 PDF 切块经验」有四处不一致。</Text>
+        <Box style={{ height: 22 }} />
+        <Table
+            style={{ width: '100%', height: 356 }}
+            defaultTextStyle={{ fontSize: 17, textAlign: 'left', color: '#1A2230' }}
+            defaultCellStyle={{
+                border: {
+                    left: { width: 0, color: '#FFFFFF' },
+                    right: { width: 0, color: '#FFFFFF' },
+                    top: { width: 0, color: '#FFFFFF' },
+                    bottom: { width: 1, color: '#D6DCE5' },
+                },
+            }}
+            cells={[
+                [
+                    { text: '原本的预判', textStyle: { bold: true, color: '#1E4FA8', fontSize: 17 }, cellStyle: { background: { color: '#E8EFF8' } } },
+                    { text: '实测发现', textStyle: { bold: true, color: '#1E4FA8', fontSize: 17 }, cellStyle: { background: { color: '#E8EFF8' } } },
+                    { text: '对切块策略的影响', textStyle: { bold: true, color: '#1E4FA8', fontSize: 17 }, cellStyle: { background: { color: '#E8EFF8' } } },
+                ],
+                [
+                    '要用正则合并 PDF 的硬换行',
+                    '段落本身就是独立 block，换行只发生在 block 内部',
+                    '取消全局合并，只在 block 内按中英规则拼接：中文直拼、英文补空格',
+                ],
+                [
+                    '书签树能提供三级目录',
+                    '书签只有一级 14 条、二级 101 条；正文另有 267 个 13pt 小节标题',
+                    '改用字号重建层级（22pt 章 / 18pt 节 / 13pt 小节），比书签更细',
+                ],
+                [
+                    '统计高频页眉页脚行并剔除',
+                    '页边区域 608 种文本各只出现 1–3 次，全部是页码，高频法失效',
+                    '改判据：9pt 且为纯数字 → 页码，直接丢弃',
+                ],
+                [
+                    '按文字字体判断是否代码块',
+                    'RobotoMono 占 22 万字符，正文里的英文单词也用它',
+                    '改判据：一行内全部 span 均为等宽字体且占比 ≥ 60% → 代码块',
+                ],
+            ]}
+        />
+        <Box style={{ height: 22 }} />
+        <Box style={{ height: 68, background: '#E8EFF8', paddingLeft: 24, paddingRight: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: 19, lineHeight: 1.6, color: '#1A2230' }}>切块策略应当<span style={{ fontWeight: 'bold', color: '#1E4FA8' }}>由本书的实测结构推导</span>，而不是套用现成模板——四处不一致，任何一处沿用通用做法都会切出脏数据。</Text>
+        </Box>
+    </Box>
+    <Box style={{ height: 60, paddingLeft: 60, paddingRight: 60, paddingTop: 12, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>基于 RAG 的 Git 知识库问答智能体 · 实验报告</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>05 / 20</Text>
+    </Box>
+</Slide>
